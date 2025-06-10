@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WorkforceAnalyticsDashboard.Models;
+using WorkforceAnalyticsDashboard.Dtos;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace WorkforceAnalyticsDashboard.Controllers
 {
@@ -187,6 +190,56 @@ namespace WorkforceAnalyticsDashboard.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ExportToXml(string? status, int? departmentId, DateTime? startDate, DateTime? endDate)
+        {
+            var query = _context.Employees
+                .Include(e => e.Department)
+                .Include(e => e.Job)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(status))
+                query = query.Where(e => e.Status == status);
+
+            if (departmentId.HasValue)
+                query = query.Where(e => e.DepartmentID == departmentId.Value);
+
+            if (startDate.HasValue)
+                query = query.Where(e => e.HireDate >= startDate.Value);
+
+            if (endDate.HasValue)
+                query = query.Where(e => e.HireDate <= endDate.Value);
+
+            var exportList = await query.Select(e => new EmployeeExportDto
+            {
+                EmployeeID = e.EmployeeID,
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                Email = e.Email,
+                PhoneNumber = e.PhoneNumber,
+                HireDate = e.HireDate,
+                Salary = e.Salary,
+                Status = e.Status,
+                DepartmentName = e.Department != null ? e.Department.Name : null,
+                DepartmentLocation = e.Department != null ? e.Department.Location : null,
+                JobTitle = e.Job != null ? e.Job.JobTitle : null,
+                JobLevel = e.Job != null ? e.Job.JobLevel : null
+            }).ToListAsync();
+
+            var serializer = new XmlSerializer(typeof(List<EmployeeExportDto>));
+            var memoryStream = new MemoryStream();
+            serializer.Serialize(memoryStream, exportList);
+            memoryStream.Position = 0;
+
+            return File(memoryStream, "application/xml", "employee-data.xml");
+
+            serializer.Serialize(memoryStream, exportList);
+            memoryStream.Position = 0;
+
+            return File(memoryStream, "application/xml", "employees.xml");
+        }
+
 
         private bool EmployeeExists(int id)
         {
