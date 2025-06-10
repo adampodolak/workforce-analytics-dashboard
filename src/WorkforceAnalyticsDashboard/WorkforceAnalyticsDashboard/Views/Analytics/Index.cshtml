@@ -1,0 +1,69 @@
+@{
+    ViewData["Title"] = "Analytics";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Workforce Analytics Dashboard</h2>
+
+    <div class="row mb-4">
+        <!-- KPI Cards -->
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Avg Tenure</h5>
+                    <p class="card-text">5.2 years</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Turnover Rate</h5>
+                    <p class="card-text">8.4%</p>
+                </div>
+            </div>
+        </div>
+        <!-- Add more KPIs -->
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Employees by Department</h5>
+            <canvas id="departmentChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <h5>Monthly Hires</h5>
+            <canvas id="hiresChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Sample chart logic (replace with real data)
+    new Chart(document.getElementById("departmentChart"), {
+        type: 'bar',
+        data: {
+            labels: ['HR', 'Eng', 'Sales'],
+            datasets: [{
+                label: '# of Employees',
+                data: [5, 12, 7],
+                borderWidth: 1
+            }]
+        }
+    });
+
+    new Chart(document.getElementById("hiresChart"), {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar'],
+            datasets: [{
+                label: 'New Hires',
+                data: [3, 5, 2],
+                fill: false,
+                borderColor: 'blue'
+            }]
+        }
+    });
+</script>

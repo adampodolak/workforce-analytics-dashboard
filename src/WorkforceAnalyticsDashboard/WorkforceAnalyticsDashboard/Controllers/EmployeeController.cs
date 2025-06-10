@@ -5,23 +5,64 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WorkforceAnalyticsDashboard.Models;
 
 namespace WorkforceAnalyticsDashboard.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeesController : Controller
     {
         private readonly AppDbContext _context;
 
-        public EmployeeController(AppDbContext context)
+        public EmployeesController(AppDbContext context)
         {
             _context = context;
         }
 
         // GET: Employee
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+            int? departmentId,
+            string status,
+            DateTime? startDate,
+            DateTime? endDate,
+            string sortBy = "LastName")
         {
-            return View(await _context.Employees.ToListAsync());
+            var employees = _context.Employees
+            .Include(e => e.Department)
+            .Include(e => e.Job)
+            .AsQueryable();
+
+            // Filtering
+            if (departmentId.HasValue)
+                employees = employees.Where(e => e.DepartmentID == departmentId.Value);
+
+            if (!string.IsNullOrEmpty(status))
+                employees = employees.Where(e => e.Status == status);
+
+            if (startDate.HasValue)
+                employees = employees.Where(e => e.HireDate >= startDate.Value);
+
+            if (endDate.HasValue)
+                employees = employees.Where(e => e.HireDate <= endDate.Value);
+
+            // Sorting
+            employees = sortBy switch
+            {
+                "FirstName" => employees.OrderBy(e => e.FirstName),
+                "HireDate" => employees.OrderByDescending(e => e.HireDate),
+                "Salary" => employees.OrderByDescending(e => e.Salary),
+                _ => employees.OrderBy(e => e.LastName) // default
+            };
+
+            ViewBag.DepartmentId = departmentId;
+            ViewBag.Status = status;
+            ViewBag.StartDate = startDate?.ToString("yyyy-MM-dd");
+            ViewBag.EndDate = endDate?.ToString("yyyy-MM-dd");
+            ViewBag.SortBy = sortBy;
+
+            var result = await employees.ToListAsync();
+            return View(result);
         }
+
 
         // GET: Employee/Details/5
         public async Task<IActionResult> Details(int? id)
