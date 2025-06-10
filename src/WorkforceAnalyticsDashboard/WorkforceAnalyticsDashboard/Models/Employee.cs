@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace WorkforceAnalyticsDashboard.Models
 {
     public class Employee
@@ -7,6 +9,8 @@ namespace WorkforceAnalyticsDashboard.Models
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
+
+        [Column(TypeName = "timestamp without time zone")]
         public DateTime HireDate { get; set; }
         public int DepartmentID { get; set; }
         public int JobID { get; set; }
