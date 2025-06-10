@@ -12,7 +12,7 @@
         </p>
     </div>
 
-    <form method="get" asp-controller="Employees" asp-action="Index" class="mb-4">
+    <form method="get" asp-controller="Employees" asp-action="Index" class="mb-3">
         <div class="row g-3 align-items-end">
             <div class="col-md-3">
                 <label for="departmentFilter" class="form-label">Department</label>
@@ -84,7 +84,7 @@
     var currentSort = ViewBag.SortBy as string;
     }
 
-    <form method="get" class="mb-4">
+    <form method="get" class="mb-0">
         <label class="form-label me-2" for="sortBy">Sort By:</label>
 
         <select class="form-select d-inline w-auto" name="sortBy" onchange="this.form.submit()">
@@ -120,6 +120,8 @@
         <input type="hidden" name="startDate" value="@ViewBag.StartDate" />
         <input type="hidden" name="endDate" value="@ViewBag.EndDate" />
     </form>
+
+    <p class="text-muted text-end mb-1">Showing @Model.Count() rows</p>
 
     <div class="table-responsive">
         <table class="table table-hover align-middle">
