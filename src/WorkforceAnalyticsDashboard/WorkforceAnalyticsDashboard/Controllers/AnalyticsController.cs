@@ -16,10 +16,13 @@ namespace WorkforceAnalyticsDashboard.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
-        {      
-            var avgTenure = _context.Employees
-                .Average(e => EF.Functions.DateDiffYear(e.HireDate, DateTime.Now));
+        public async Task<IActionResult> Index()
+        {
+            var currentYear = DateTime.UtcNow.Year;
+
+            var avgTenure = await _context.Employees
+                .Select(e => currentYear - e.HireDate.Year)
+                .AverageAsync();
 
             var totalEmployees = _context.Employees.Count();
             
