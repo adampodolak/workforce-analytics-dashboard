@@ -76,7 +76,10 @@ namespace WorkforceAnalyticsDashboard.Controllers
             }
 
             var employee = await _context.Employees
+                .Include(e => e.Department)
+                .Include(e => e.Job)
                 .FirstOrDefaultAsync(m => m.EmployeeID == id);
+
             if (employee == null)
             {
                 return NotFound();
