@@ -45,7 +45,7 @@
 
             <div class="form-group mb-2">
                 <label class="control-label" for="DepartmentID">Department</label>
-                <select asp-for="DepartmentID" asp-items="ViewBag.Departments" class="form-control" required>
+                <select asp-for="DepartmentID" asp-items="ViewBag.Departments" class="form-control" id="DepartmentID" required>
                     <option value="">-- Select Department --</option>
                 </select>
                 <span asp-validation-for="DepartmentID" class="text-danger"></span>
@@ -53,11 +53,12 @@
 
             <div class="form-group mb-2">
                 <label class="control-label" for="JobID">Job</label>
-                <select asp-for="JobID" asp-items="ViewBag.Jobs" class="form-control" required>
+                <select asp-for="JobID" asp-items="ViewBag.Jobs" class="form-control" id="JobID" required>
                     <option value="">-- Select Job --</option>
                 </select>
                 <span asp-validation-for="JobID" class="text-danger"></span>
             </div>
+
 
             <div class="form-group mb-2">
                 <label class="control-label" for="SalaryFormatted">Salary</label>
@@ -89,14 +90,12 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Phone number formatting
             new Cleave('#PhoneNumber', {
                 delimiters: ['(', ') ', '-', '-'],
                 blocks: [0, 3, 3, 4],
                 numericOnly: true
             });
 
-            // Salary formatting
             var cleaveSalary = new Cleave('#SalaryFormatted', {
                 prefix: '$',
                 noImmediatePrefix: false,
@@ -107,13 +106,30 @@
                 delimiter: ','
             });
 
-            // Pre-fill formatted salary on page load
             cleaveSalary.setRawValue('@Model.Salary');
 
-            // On submit, write raw value into hidden field
             document.querySelector('form').addEventListener('submit', function () {
                 document.getElementById('SalaryRaw').value = cleaveSalary.getRawValue();
             });
+
+            document.getElementById("DepartmentID").addEventListener("change", function () {
+                var deptId = this.value;
+                var jobDropdown = document.getElementById("JobID");
+                jobDropdown.innerHTML = '<option value="">Loading...</option>';
+
+                fetch(`/Employees/GetJobsByDepartment?departmentId=${deptId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        jobDropdown.innerHTML = '<option value="">-- Select Job --</option>';
+                        data.forEach(job => {
+                            var option = document.createElement("option");
+                            option.value = job.jobID;
+                            option.text = job.jobTitle;
+                            jobDropdown.appendChild(option);
+                        });
+                    });
+            });
+
         });
     </script>
 }

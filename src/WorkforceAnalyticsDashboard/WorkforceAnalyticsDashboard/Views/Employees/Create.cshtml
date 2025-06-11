@@ -43,7 +43,7 @@
 
             <div class="form-group mb-1">
                 <label class="control-label">Department</label>
-                <select asp-for="DepartmentID" asp-items="ViewBag.Departments" class="form-control" required>
+                <select asp-for="DepartmentID" asp-items="ViewBag.Departments" class="form-control" id="DepartmentID" required>
                     <option value="">-- Select Department --</option>
                 </select>
                 <span asp-validation-for="DepartmentID" class="text-danger"></span>
@@ -51,7 +51,7 @@
 
             <div class="form-group mb-1">
                 <label class="control-label">Job</label>
-                <select asp-for="JobID" asp-items="ViewBag.Jobs" class="form-control" required>
+                <select asp-for="JobID" class="form-control" id="JobID" required>
                     <option value="">-- Select Job --</option>
                 </select>
                 <span asp-validation-for="JobID" class="text-danger"></span>
@@ -59,11 +59,7 @@
 
             <div class="form-group mb-1">
                 <label class="control-label">Salary</label>
-
-                <!-- Hidden input for actual model binding -->
                 <input type="hidden" id="SalaryRaw" name="Salary" />
-
-                <!-- Visible input for formatted salary -->
                 <input type="text" id="SalaryFormatted" class="form-control" required placeholder="$0.00" />
 
                 <span asp-validation-for="Salary" class="text-danger"></span>
@@ -95,14 +91,13 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Phone number formatting
+
             new Cleave('#PhoneNumber', {
                 delimiters: ['(', ') ', '-', '-'],
                 blocks: [0, 3, 3, 4],
                 numericOnly: true
             });
 
-            // Salary formatting
             var cleaveSalary = new Cleave('#SalaryFormatted', {
                 prefix: '$',
                 noImmediatePrefix: false,
@@ -113,10 +108,30 @@
                 delimiter: ','
             });
 
-            // On submit, update the hidden salary input with raw value
+            cleaveSalary.setRawValue('@Model?.Salary ?? 0');
+
             document.querySelector('form').addEventListener('submit', function () {
                 document.getElementById('SalaryRaw').value = cleaveSalary.getRawValue();
+            });
+
+            document.getElementById("DepartmentID").addEventListener("change", function () {
+                var deptId = this.value;
+                var jobDropdown = document.getElementById("JobID");
+                jobDropdown.innerHTML = '<option value="">Loading...</option>';
+
+                fetch(`/Employees/GetJobsByDepartment?departmentId=${deptId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        jobDropdown.innerHTML = '<option value="">-- Select Job --</option>';
+                        data.forEach(job => {
+                            var option = document.createElement("option");
+                            option.value = job.jobID;
+                            option.text = job.jobTitle;
+                            jobDropdown.appendChild(option);
+                        });
+                    });
             });
         });
     </script>
 }
+
