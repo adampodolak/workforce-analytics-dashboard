@@ -45,10 +45,10 @@ The **Workforce Analytics Dashboard** is a fully responsive, cloud-hosted analyt
 ✅ KPI dashboards with calculated business metrics (e.g. turnover rate, tenure, average salary)  
 ✅ Dynamic filtering, sorting, and XML exporting  
 ✅ Responsive UI for mobile & desktop  
-✅ Live production deployment on Azure with CI/CD pipelines
+✅ Live production deployment on Azure with CI/CD pipelines  
 ✅ Full SDLC project board for transparent software lifecycle management  
 ✅ PostgreSQL relational database integration  
-✅ Modular and scalable backend API structure
+✅ Modular and scalable backend API structure  
 
 ---
 
@@ -63,14 +63,6 @@ Fully functional live version with CRUD functionality enabled for demo purposes.
 
 📅 **[View full project development board on GitHub Projects](https://github.com/users/adampodolak/projects/5)**  
 Includes all tracked SDLC phases:
-
----
-
-### 🏗️ Architecture Diagram
-
-The application follows a classic 3-tier MVC architecture, fully deployed in the cloud:
-
-TODO
 
 ---
 
