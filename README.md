@@ -4,6 +4,18 @@
 [![GitHub](https://img.shields.io/badge/Repo-GitHub-green?logo=github)](https://github.com/adampodolak/workforce-analytics-dashboard)
 [![Project Board](https://img.shields.io/badge/SDLC-Project%20Board-yellow?logo=github)](https://github.com/users/adampodolak/projects/5)
 
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-512BD4?logo=dotnet&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=white)
+![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?logo=chart.js&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-239120?logo=c-sharp&logoColor=white)
+![Entity Framework](https://img.shields.io/badge/Entity_Framework_Core-512BD4?logo=dotnet&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?logo=postgresql&logoColor=white)
+![Visual Studio 2022](https://img.shields.io/badge/Visual_Studio-5C2D91?logo=visualstudio&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)
+![Azure](https://img.shields.io/badge/azure-%230072C6.svg?logo=microsoftazure&logoColor=white)
+
+
+
 ---
 
 ### 🚀 Summary
