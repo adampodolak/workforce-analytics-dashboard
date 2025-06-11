@@ -123,6 +123,10 @@ namespace WorkforceAnalyticsDashboard.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.Departments = new SelectList(_context.Departments, "DepartmentID", "Name", employee.DepartmentID);
+            ViewBag.Jobs = new SelectList(_context.Jobs, "JobID", "JobTitle", employee.JobID);
+
             return View(employee);
         }
 
@@ -158,6 +162,10 @@ namespace WorkforceAnalyticsDashboard.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.Departments = new SelectList(_context.Departments, "DepartmentID", "Name", employee.DepartmentID);
+            ViewBag.Jobs = new SelectList(_context.Jobs, "JobID", "JobTitle", employee.JobID);
+
             return View(employee);
         }
 
