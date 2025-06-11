@@ -125,7 +125,13 @@ namespace WorkforceAnalyticsDashboard.Controllers
             }
 
             ViewBag.Departments = new SelectList(_context.Departments, "DepartmentID", "Name", employee.DepartmentID);
-            ViewBag.Jobs = new SelectList(_context.Jobs, "JobID", "JobTitle", employee.JobID);
+            
+            var jobs = _context.Jobs
+                    .Where(j => j.DepartmentID == employee.DepartmentID)
+                    .ToList();
+
+            ViewBag.Jobs = new SelectList(jobs, "JobID", "JobTitle", employee.JobID);
+
 
             return View(employee);
         }
@@ -199,8 +205,21 @@ namespace WorkforceAnalyticsDashboard.Controllers
             }
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public JsonResult GetJobsByDepartment(int departmentId)
+        {
+            var jobs = _context.Jobs
+                .Where(j => j.DepartmentID == departmentId)
+                .Select(j => new { j.JobID, j.JobTitle })
+                .ToList();
+
+            return Json(jobs);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> ExportToXml(string? status, int? departmentId, DateTime? startDate, DateTime? endDate)

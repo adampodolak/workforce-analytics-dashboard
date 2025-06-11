@@ -92,6 +92,9 @@ namespace WorkforceAnalyticsDashboard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("JobID"));
 
+                    b.Property<int?>("DepartmentID")
+                        .HasColumnType("integer");
+
                     b.Property<string>("JobLevel")
                         .HasColumnType("text");
 
@@ -99,6 +102,8 @@ namespace WorkforceAnalyticsDashboard.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("JobID");
+
+                    b.HasIndex("DepartmentID");
 
                     b.ToTable("Jobs");
                 });
@@ -120,6 +125,15 @@ namespace WorkforceAnalyticsDashboard.Migrations
                     b.Navigation("Department");
 
                     b.Navigation("Job");
+                });
+
+            modelBuilder.Entity("WorkforceAnalyticsDashboard.Models.Job", b =>
+                {
+                    b.HasOne("WorkforceAnalyticsDashboard.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentID");
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("WorkforceAnalyticsDashboard.Models.Department", b =>
