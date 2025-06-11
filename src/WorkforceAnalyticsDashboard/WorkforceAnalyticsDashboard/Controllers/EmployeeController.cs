@@ -88,8 +88,11 @@ namespace WorkforceAnalyticsDashboard.Controllers
         // GET: Employee/Create
         public IActionResult Create()
         {
+            ViewBag.Departments = new SelectList(_context.Departments, "DepartmentID", "Name");
+            ViewBag.Jobs = new SelectList(_context.Jobs, "JobID", "JobTitle");
             return View();
         }
+
 
         // POST: Employee/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.

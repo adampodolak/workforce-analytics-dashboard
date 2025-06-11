@@ -1,8 +1,49 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Workforce Analytics Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Hello World</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Workforce Analytics Dashboard</h1>
+        <p class="lead">
+            A full-stack .NET web application simulating an HR dashboard with actionable insights into workforce trends using real-time KPIs and visualizations.
+            Structured for future integration with enterprise tools and reporting workflows (e.g., Oracle HCM and OTBI).
+        </p>
+    </div>
+
+    <div class="mb-5">
+        <h3>👥 Employees Page</h3>
+        <p>
+            A sortable, filterable employee directory built with ASP.NET Core MVC and server-side SQL logic using Entity Framework.
+            Each employee record supports XML export.
+        </p>
+    </div>
+
+    <div class="mb-5">
+        <h3>📊 Analytics Page</h3>
+        <p>
+            Displays workforce metrics such as average salary, turnover rate, and most common roles using KPI cards and interactive charts.
+            This view emulates operational dashboards found in enterprise platforms like Oracle OTBI.
+        </p>
+    </div>
+
+    <div class="mb-5">
+        <h3>🛠️ Technologies Used</h3>
+        <ul>
+            <li>ASP.NET Core MVC with Razor Pages (C#)</li>
+            <li>SQL Server with Entity Framework Core (connected via Railway PostgreSQL)</li>
+            <li>Chart.js for data visualization</li>
+            <li>Bootstrap 5 for responsive UI</li>
+            <li>XML exporting</li>
+            <li>Deployed via Microsoft Azure Web App Services</li>
+            <li>CI/CD pipelines implemented using GitHub Actions</li>
+            <li>Agile development simulated with <a href="https://github.com/users/adampodolak/projects/5" target="_blank" rel="noopener noreferrer">GitHub Projects</a> and issue tracking</li>
+        </ul>
+    </div>
+
+    <div class="mb-5">
+        <p class="text-muted small">
+            This project demonstrates hands-on experience with full-stack development, data querying, export formatting, and UI reporting — aligning with real-world enterprise workflows and development practices.
+        </p>
+    </div>
 </div>
