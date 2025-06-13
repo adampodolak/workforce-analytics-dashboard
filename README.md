@@ -57,12 +57,22 @@ The **Workforce Analytics Dashboard** is a fully responsive, cloud-hosted analyt
 🌐 **[Access the Live Dashboard here](https://workforce-analytics-web-bqguhmaxdtbycwfd.canadacentral-01.azurewebsites.net/)**  
 Fully functional live version with CRUD functionality enabled for demo purposes.
 
+![image](https://github.com/user-attachments/assets/50b6cd56-155b-4978-a934-2ca62e99d90f)
+
+![image](https://github.com/user-attachments/assets/290187fd-b5a5-4e6e-b4e2-09a3ba0b2f72)
+
 ---
 
 ### 🗂️ Full Project Board (SDLC)
 
 📅 **[View full project development board on GitHub Projects](https://github.com/users/adampodolak/projects/5)**  
 Includes all tracked SDLC phases:
+
+---
+
+### 🏗️ Architecture Overview
+
+![image](https://github.com/user-attachments/assets/ff6355b3-e71d-43ba-8fd8-5194aaa85080)
 
 ---
 
